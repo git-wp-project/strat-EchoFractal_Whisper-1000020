@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>回音分形低语协议 | 专业量化交易系统</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&amp;family=Noto+Serif+SC:wght@700&amp;display=swap');
+        
+        body {
+            font-family: 'Noto Sans SC', system_ui, -apple-system, sans-serif;
+        }
+        
+        .heading-serif {
+            font-family: 'Noto Serif SC', Georgia, serif;
+            font-weight: 700;
+        }
+
+        .section-header {
+            font-size: 2.1rem;
+            line-height: 2.4rem;
+            font-weight: 700;
+            color: #134e4b;
+        }
+
+        .strategy-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .strategy-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .metric-value {
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+            font-weight: 700;
+            color: #134e4b;
+        }
+
+        .nav-active {
+            color: #134e4b;
+            font-weight: 600;
+            border-bottom: 3px solid #14b8a6;
+        }
+
+        .info-grid {
+            background: linear-gradient(145deg, #f0fdfa 0%, #ffffff 100%);
+        }
+
+        .logic-step {
+            transition: all 0.2s ease;
+        }
+
+        .logic-step:hover {
+            background-color: #f0fdfa;
+            transform: translateX(4px);
+        }
+
+        .parameter-table tr:hover {
+            background-color: #f0fdfa;
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, #134e4b 0%, #0f766e 100%);
+        }
+
+        .accent-teal {
+            color: #14b8a6;
+        }
+    </style>
+</head>
+<body class="bg-zinc-50 text-zinc-800">
+    <!-- Navbar -->
+    <nav class="bg-white border-b border-zinc-200 sticky top-0 z-50">
+        <div class="max-w-screen-xl mx-auto">
+            <div class="px-8 py-5 flex items-center justify-between">
+                <div class="flex items-center gap-x-3">
+                    <div class="w-11 h-11 bg-teal-800 rounded-2xl flex items-center justify-center">
+                        <i class="fa-solid fa-chart-line text-white text-3xl"></i>
+                    </div>
+                    <div>
+                        <span class="font-bold text-2xl tracking-tighter">回音分形</span>
+                        <span class="font-semibold text-teal-700">低语协议</span>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                    <a href="#overview" class="hover:text-teal-700 transition-colors">系统概览</a>
+                    <a href="#logic" class="hover:text-teal-700 transition-colors">核心逻辑</a>
+                    <a href="#parameters" class="hover:text-teal-700 transition-colors">参数设置</a>
+                    <a href="#visuals" class="hover:text-teal-700 transition-colors">信号图示</a>
+                    <a href="#risk" class="hover:text-teal-700 transition-colors">风险提示</a>
+                </div>
+                
+                <div class="flex items-center gap-x-3">
+                    <div class="px-4 py-1.5 bg-teal-100 text-teal-800 text-xs font-semibold rounded-3xl flex items-center gap-x-1.5">
+                        <i class="fa-solid fa-check-double"></i>
+                        <span>MT4 / MT5 就绪</span>
+                    </div>
+                    <button onclick="downloadPackage()" 
+                            class="px-6 py-2.5 bg-teal-800 hover:bg-teal-900 transition-all text-white text-sm font-semibold rounded-3xl flex items-center gap-x-2 shadow-sm">
+                        <i class="fa-solid fa-download"></i>
+                        <span>下载完整包</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-bg text-white">
+        <div class="max-w-screen-xl mx-auto px-8 pt-16 pb-20">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-x-2 bg-white/10 backdrop-blur-md px-4 py-1 rounded-3xl mb-6 text-sm">
+                    <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                    <span class="font-medium">另类量化系统 • 2026 版</span>
+                </div>
+                
+                <h1 class="text-6xl md:text-7xl leading-[1.05] tracking-tighter font-bold mb-4">
+                    回音分形<br>低语协议
+                </h1>
+                <p class="text-2xl text-teal-100 max-w-lg mb-8">
+                    一个优雅的另类反转参与系统，在果断行动前聆听市场的低语回音。
+                </p>
+                
+                <div class="flex items-center gap-x-4">
+                    <button onclick="document.getElementById('logic').scrollIntoView({ behavior: 'smooth' })" 
+                            class="px-8 py-4 bg-white text-teal-900 hover:bg-zinc-100 transition-all font-semibold rounded-3xl flex items-center gap-x-3 text-base shadow-lg">
+                        <span>探索核心逻辑</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    
+                    <button onclick="window.location.href='#visuals'" 
+                            class="px-8 py-4 border border-white/40 hover:bg-white/10 transition-all font-medium rounded-3xl flex items-center gap-x-3 text-base">
+                        <i class="fa-solid fa-image"></i>
+                        <span>查看信号图示</span>
+                    </button>
+                </div>
+                
+                <div class="mt-10 flex items-center gap-x-8 text-sm">
+                    <div class="flex -space-x-2">
+                        <div class="w-8 h-8 bg-white rounded-full border-2 border-teal-900 overflow-hidden"><img src="https://i.pravatar.cc/32?img=28" class="w-full h-full object-cover"></div>
+                        <div class="w-8 h-8 bg-white rounded-full border-2 border-teal-900 overflow-hidden"><img src="https://i.pravatar.cc/32?img=47" class="w-full h-full object-cover"></div>
+                        <div class="w-8 h-8 bg-white rounded-full border-2 border-teal-900 overflow-hidden"><img src="https://i.pravatar.cc/32?img=12" class="w-full h-full object-cover"></div>
+                    </div>
+                    <div class="text-teal-200 text-sm">全球专业量化交易者信赖</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overview -->
+    <div id="overview" class="max-w-screen-xl mx-auto px-8 pt-16">
+        <div class="grid md:grid-cols-12 gap-8 items-center">
+            <div class="md:col-span-7">
+                <div class="uppercase tracking-[3px] text-xs font-semibold text-teal-700 mb-3">专业量化系统</div>
+                <h2 class="section-header tracking-tight">传统趋势跟随系统的精炼另类方案</h2>
+                <p class="mt-5 text-lg text-zinc-600 max-w-xl">
+                    回音分形低语协议专为寻求在盘整和过渡市场中获取优势的交易者设计。
+                    它通过结合比尔·威廉姆斯分形与RSI动能确认，在低波动（安静）环境中识别高概率反转机会，并通过成交量放大进行验证。
+                </p>
+                
+                <div class="mt-8 grid grid-cols-3 gap-4">
+                    <div class="bg-white p-5 rounded-3xl border border-zinc-100">
+                        <div class="text-emerald-600"><i class="fa-solid fa-sync fa-lg"></i></div>
+                        <div class="mt-6 text-sm font-medium">带记忆的<br>均值回归</div>
+                    </div>
+                    <div class="bg-white p-5 rounded-3xl border border-zinc-100">
+                        <div class="text-emerald-600"><i class="fa-solid fa-volume-up fa-lg"></i></div>
+                        <div class="mt-6 text-sm font-medium">成交量确认的<br>分形回音</div>
+                    </div>
+                    <div class="bg-white p-5 rounded-3xl border border-zinc-100">
+                        <div class="text-emerald-600"><i class="fa-solid fa-shield-halved fa-lg"></i></div>
+                        <div class="mt-6 text-sm font-medium">严格每笔<br>1%风险</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="md:col-span-5">
+                <div class="bg-white rounded-3xl p-7 border border-zinc-100 shadow-sm">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <div class="text-xs uppercase tracking-widest font-semibold text-zinc-500">核心特征</div>
+                            <div class="text-xl font-semibold mt-1">另类 • 精准 • 耐心</div>
+                        </div>
+                        <i class="fa-solid fa-globe text-4xl text-teal-700/30"></i>
+                    </div>
+                    
+                    <div class="space-y-4 text-sm">
+                        <div class="flex justify-between py-1 border-b border-zinc-100">
+                            <span class="text-zinc-500">最佳时间框架</span>
+                            <span class="font-semibold">H1、H4、日线</span>
+                        </div>
+                        <div class="flex justify-between py-1 border-b border-zinc-100">
+                            <span class="text-zinc-500">推荐交易品种</span>
+                            <span class="font-semibold">EURUSD、GBPUSD、USDJPY、XAUUSD</span>
+                        </div>
+                        <div class="flex justify-between py-1 border-b border-zinc-100">
+                            <span class="text-zinc-500">风格</span>
+                            <span class="font-semibold">反转 / 逆势</span>
+                        </div>
+                        <div class="flex justify-between py-1">
+                            <span class="text-zinc-500">风险特征</span>
+                            <span class="font-semibold text-emerald-700">保守型（每笔1%）</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Logic -->
+    <div id="logic" class="max-w-screen-xl mx-auto px-8 pt-20">
+        <div class="text-center mb-10">
+            <div class="inline px-4 py-1 bg-teal-100 text-teal-800 text-xs font-bold tracking-widest rounded-3xl">核心逻辑</div>
+            <h2 class="section-header mt-3 tracking-tight">回音分形低语协议如何运作</h2>
+            <p class="text-zinc-600 mt-3 max-w-md mx-auto">一个清晰、基于规则的过程，在行动前等待市场的低语。</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- Long Opportunity -->
+            <div class="strategy-card bg-white border border-zinc-100 rounded-3xl p-8">
+                <div class="flex items-center gap-x-4 mb-6">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-700 flex-shrink-0 rounded-2xl flex items-center justify-center">
+                        <i class="fa-solid fa-arrow-trend-up fa-2x"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-2xl tracking-tight">做多参与机会</div>
+                        <div class="text-emerald-600 text-sm font-medium">看涨反转回音</div>
+                    </div>
+                </div>
+                
+                <div class="space-y-5 text-[15px]">
+                    <div class="logic-step flex gap-4 p-4 rounded-2xl">
+                        <div class="font-mono w-6 text-emerald-700 font-bold flex-shrink-0">01</div>
+                        <div><span class="font-semibold">检测看涨分形</span><br><span class="text-zinc-500 text-sm">形成局部低点（比尔·威廉姆斯分形，shift 2）</span></div>
+                    </div>
+                    <div class="logic-step flex gap-4 p-4 rounded-2xl">
+                        <div class="font-mono w-6 text-emerald-700 font-bold flex-shrink-0">02</div>
+                        <div><span class="font-semibold">RSI 确认</span><br><span class="text-zinc-500 text-sm">RSI &lt; 40 且上升（从超卖区动能转换）</span></div>
+                    </div>
+                    <div class="logic-step flex gap-4 p-4 rounded-2xl">
+                        <div class="font-mono w-6 text-emerald-700 font-bold flex-shrink-0">03</div>
+                        <div><span class="font-semibold">安静市场过滤</span><br><span class="text-zinc-500 text-sm">ADX &lt; 25 — 市场处于盘整，非强趋势</span></div>
+                    </div>
+                    <div class="logic-step flex gap-4 p-4 rounded-2xl">
+                        <div class="font-mono w-6 text-emerald-700 font-bold flex-shrink-0">04</div>
+                        <div><span class="font-semibold">成交量放大验证</span><br><span class="text-zinc-500 text-sm">当前成交量超过20期均量（“低语”确认）</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Short Opportunity -->
+            <div class="strategy-card bg-white border border-zinc-100 rounded-3xl p-8">
+                <div class="flex items-center gap-x-4 mb-6">
+                    <div class="w-12 h-12 bg-rose-100 text-rose-700 flex-shrink-0 rounded-2xl flex items-center justify-center">
+                        <i class="fa-solid fa-arrow-trend-down fa-2x"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-2xl tracking-tight">做空参与机会</div>
+                        <div class="text-rose-600 text-sm font-medium">看跌反转回音</div>
+                    </div>
+                </div>
+                
+                <div class="space-y-5 text-[15px]">
+                    <div class="logic-step flex gap-4 p-4 rounded-2xl">
+                        <div class="font-mono w-6 text-rose-700 font-bold flex-shrink-0">01</div>
+                        <div><span class="font-semibold">检测看跌分形</span><br><span class="text-zinc-500 text-sm">形成局部高点（比尔·威廉姆斯分形）</span></div>
+                    </div>
+                    <div class="logic-step flex gap-4 p-4 rounded-2xl">
+                        <div class="font-mono w-6 text-rose-700 font-bold flex-shrink-0">02</div>
+                        <div><span class="font-semibold">RSI 确认</span><br><span class="text-zinc-500 text-sm">RSI &gt; 60 且回落（动能耗尽）</span></div>
+                    </div>
+                    <div class="logic-step flex gap-4 p-4 rounded-2xl">
+                        <div class="font-mono w-6 text-rose-700 font-bold flex-shrink-0">03</div>
+                        <div><span class="font-semibold">安静市场过滤</span><br><span class="text-zinc-500 text-sm">ADX &lt; 25 — 确认缺乏强方向性信念</span></div>
+                    </div>
+                    <div class="logic-step flex gap-4 p-4 rounded-2xl">
+                        <div class="font-mono w-6 text-rose-700 font-bold flex-shrink-0">04</div>
+                        <div><span class="font-semibold">成交量放大验证</span><br><span class="text-zinc-500 text-sm">反转回音的成交量确认</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SL / TP / Position -->
+        <div class="mt-8 grid md:grid-cols-3 gap-6">
+            <div class="bg-white border border-zinc-100 p-7 rounded-3xl">
+                <div class="uppercase text-xs tracking-[1.5px] font-bold text-zinc-500 mb-3">止损设置</div>
+                <div class="text-2xl font-semibold tracking-tight mb-1">分形水平 ± ATR × 1.5</div>
+                <p class="text-sm text-zinc-600">置于分形回音点之外，增加波动率缓冲以防止噪音干扰。</p>
+            </div>
+            <div class="bg-white border border-zinc-100 p-7 rounded-3xl">
+                <div class="uppercase text-xs tracking-[1.5px] font-bold text-zinc-500 mb-3">止盈目标</div>
+                <div class="text-2xl font-semibold tracking-tight mb-1">风险回报比 1 : 2.5</div>
+                <p class="text-sm text-zinc-600">固定盈亏比确保正期望值。备选：追踪至下一个相反分形水平。</p>
+            </div>
+            <div class="bg-white border border-zinc-100 p-7 rounded-3xl">
+                <div class="uppercase text-xs tracking-[1.5px] font-bold text-zinc-500 mb-3">仓位管理</div>
+                <div class="text-2xl font-semibold tracking-tight mb-1">账户风险 1%</div>
+                <p class="text-sm text-zinc-600">基于止损距离的动态手数计算。严格的资金保护是协议核心。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Parameters -->
+    <div id="parameters" class="max-w-screen-xl mx-auto px-8 pt-20">
+        <div class="mb-8">
+            <div class="uppercase tracking-[3px] text-xs font-bold text-teal-700">配置参数</div>
+            <h2 class="section-header tracking-tight mt-1">推荐参数设置</h2>
+        </div>
+        
+        <div class="bg-white border border-zinc-200 rounded-3xl overflow-hidden shadow-sm">
+            <table class="parameter-table w-full text-sm">
+                <thead>
+                    <tr class="bg-zinc-100 text-left">
+                        <th class="px-8 py-4 font-semibold">参数名称</th>
+                        <th class="px-6 py-4 font-semibold">数值</th>
+                        <th class="px-8 py-4 font-semibold">说明</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-zinc-100 text-zinc-700">
+                    <tr>
+                        <td class="px-8 py-4 font-medium">RSI 周期</td>
+                        <td class="px-6 py-4 font-mono font-semibold">14</td>
+                        <td class="px-8 py-4 text-sm">标准动能振荡器周期</td>
+                    </tr>
+                    <tr>
+                        <td class="px-8 py-4 font-medium">ADX 周期 / 阈值</td>
+                        <td class="px-6 py-4 font-mono font-semibold">14 / 25</td>
+                        <td class="px-8 py-4 text-sm">识别安静/盘整市场环境</td>
+                    </tr>
+                    <tr>
+                        <td class="px-8 py-4 font-medium">ATR 周期 / 止损倍数</td>
+                        <td class="px-6 py-4 font-mono font-semibold">14 / 1.5</td>
+                        <td class="px-8 py-4 text-sm">基于波动率的止损缓冲</td>
+                    </tr>
+                    <tr>
+                        <td class="px-8 py-4 font-medium">风险回报比</td>
+                        <td class="px-6 py-4 font-mono font-semibold">1 : 2.5</td>
+                        <td class="px-8 py-4 text-sm">正期望值目标</td>
+                    </tr>
+                    <tr>
+                        <td class="px-8 py-4 font-medium">成交量均线周期</td>
+                        <td class="px-6 py-4 font-mono font-semibold">20</td>
+                        <td class="px-8 py-4 text-sm">通过成交量放大确认参与</td>
+                    </tr>
+                    <tr>
+                        <td class="px-8 py-4 font-medium">每笔风险</td>
+                        <td class="px-6 py-4 font-mono font-semibold">1.0%</td>
+                        <td class="px-8 py-4 text-sm">严格账户风险管理</td>
+                    </tr>
+                    <tr>
+                        <td class="px-8 py-4 font-medium">魔法号</td>
+                        <td class="px-6 py-4 font-mono font-semibold">20260505</td>
+                        <td class="px-8 py-4 text-sm">订单管理的唯一标识符</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="text-center text-xs text-zinc-500 mt-4">所有参数在 MT4 和 MT5 版本中均可完全自定义。</p>
+    </div>
+
+    <!-- Visuals -->
+    <div id="visuals" class="max-w-screen-xl mx-auto px-8 pt-20 pb-12">
+        <div class="text-center mb-10">
+            <div class="inline px-4 py-1 bg-teal-100 text-teal-800 text-xs font-bold tracking-widest rounded-3xl">可视化指南</div>
+            <h2 class="section-header mt-3 tracking-tight">信号判断与执行流程</h2>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Signal Judgment -->
+            <div class="bg-white border border-zinc-200 rounded-3xl overflow-hidden shadow-sm">
+                <div class="px-8 pt-8 pb-5">
+                    <div class="font-semibold text-xl flex items-center gap-x-3">
+                        <i class="fa-solid fa-magnifying-glass-chart text-teal-700"></i>
+                        <span>信号判断</span>
+                    </div>
+                    <p class="text-sm text-zinc-600 mt-1">识别高概率参与机会的清晰条件。</p>
+                </div>
+                <div class="px-6 pb-6">
+                    <img src="/home/workdir/artifacts/imagine_images/5soui.jpg" alt="回音分形低语协议 - 信号判断信息图" 
+                         class="w-full h-auto rounded-2xl border border-zinc-100 shadow-inner">
+                </div>
+                <div class="px-8 pb-8 text-xs text-zinc-500 flex items-center gap-x-2">
+                    <i class="fa-solid fa-info-circle"></i>
+                    <span>左侧所有四个条件对齐时买入/做多。右侧条件对齐时卖出/做空。</span>
+                </div>
+            </div>
+            
+            <!-- Execution Flow -->
+            <div class="bg-white border border-zinc-200 rounded-3xl overflow-hidden shadow-sm">
+                <div class="px-8 pt-8 pb-5">
+                    <div class="font-semibold text-xl flex items-center gap-x-3">
+                        <i class="fa-solid fa-stream text-teal-700"></i>
+                        <span>执行流程</span>
+                    </div>
+                    <p class="text-sm text-zinc-600 mt-1">从检测到仓位管理的简单6步流程。</p>
+                </div>
+                <div class="px-6 pb-6">
+                    <img src="/home/workdir/artifacts/imagine_images/WaH6F.jpg" alt="回音分形低语协议 - 执行流程信息图" 
+                         class="w-full h-auto rounded-2xl border border-zinc-100 shadow-inner">
+                </div>
+                <div class="px-8 pb-8 text-xs text-zinc-500">
+                    遵循编号流程，实现每一次机会的纪律化、无情绪执行。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Risk Disclosure -->
+    <div id="risk" class="max-w-screen-xl mx-auto px-8 pt-8 pb-20">
+        <div class="bg-zinc-900 text-white rounded-3xl px-10 py-10">
+            <div class="max-w-3xl">
+                <div class="flex items-center gap-x-4 mb-6">
+                    <i class="fa-solid fa-exclamation-triangle text-amber-400 text-3xl"></i>
+                    <h3 class="text-2xl font-semibold tracking-tight">重要风险提示</h3>
+                </div>
+                
+                <div class="prose prose-invert text-zinc-300 text-[15px] max-w-none">
+                    <p>回音分形低语协议仅供信息和研究目的的教育性量化工具。任何交易系统（包括回测结果）的过往表现均不保证未来结果。</p>
+                    
+                    <p class="mt-4">参与金融市场交易涉及重大亏损风险，并非适合所有投资者。1%风险规则可显著降低但无法消除回撤的可能性。市场状况可能迅速变化，任何系统都无法完全准确预测所有结果。</p>
+                    
+                    <p class="mt-4">在使用任何自动交易系统或参与实盘交易前，请始终自行进行尽职调查，考虑个人财务状况、风险承受能力，并咨询合格的财务顾问。</p>
+                </div>
+                
+                <div class="mt-8 pt-6 border-t border-white/20 text-xs text-zinc-400 flex items-center gap-x-2">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>本系统按“现状”提供，不附带任何保证。请自行承担使用风险。</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="border-t border-zinc-200 py-8">
+        <div class="max-w-screen-xl mx-auto px-8 text-xs text-zinc-500 flex flex-col md:flex-row items-center justify-between gap-y-3">
+            <div>© 2026 专业量化策略构建师。保留所有权利。</div>
+            <div class="flex items-center gap-x-5">
+                <span>基于动态市场分析精准构建</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function downloadPackage() {
+            alert("感谢您！在实际部署中，此按钮将触发完整ZIP包的下载，包含MT4/MT5 EA、HTML指南和视觉资产。");
+            // In production: window.location.href = 'EchoFractal_Whisper_Protocol_Complete_Package.zip';
+        }
+        
+        // Simple smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "strategy_id": "EchoFractal_Whisper",
+  "magic": 1000020,
+  "symbol": "",
+  "timeframe": "",
+  "docs_url": "https://ldcstc-gif.github.io/strat-EchoFractal_Whisper-1000020/",
+  "params": {
+    "FractalPeriod": 5,
+    "VolumeSMAPeriod": 20,
+    "VolumeMultiplier": 1.8,
+    "ATRPeriod": 14,
+    "ATRSLMultiplier": 1.5,
+    "ATRTPMultiplier": 3.0,
+    "TrendMAPeriod": 200,
+    "RiskPercent": 1.0,
+    "MaxDailyTrades": 3
+  }
+}
